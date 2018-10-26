@@ -16,20 +16,21 @@ public class InterfazConsola {
 	private static PrintStream out;//Declaracion variables scope clase
 	private static Scanner teclado;//Declaracion variables scope clase
 	private String ruta;//Declaracion variables scope clase
+	private Libro libro; //Declaracion varialbe scope clase
+	private Libro dato; //Declaracion varialbe scope clase
+	private Vector<Libro> vectorLibros; //Declaracion varialbe scope clase
 
 	public InterfazConsola(String ruta) {
 		this.ruta = ruta; //ruta
+		this.vectorLibros = new Vector<Libro>(); //defino variables locales
+		this.dato = null;
+		this.libro = new Libro();
 	}
 
 	public void startInterface() {
 		definirStandarsInOut();
-		Vector<Libro> vectorLibros = new Vector<Libro>();//defino variables locales
-		int i;//defino variables locales
-		Libro dato = null, libro;//defino variables locales
-		int opcion, subopcion;//defino variables locales
-		int[] contador = { 0 }; //defino variables locales
+		int opcion;//defino variables locales
 		cargarLibros(ruta, vectorLibros); //cargo libro
-		libro = new Libro(); //nuevo libro
 
 		// Pregunto por la opcion a elegir
 		do {
@@ -54,28 +55,7 @@ public class InterfazConsola {
 			else if (opcion >= 2 && opcion <= 4 && dato == null) //opcion entre 2 y 4
 				out.println("\nRegistro no encontrado."); //registro no encontrado, sad face//muestro por pantalla
 			else
-				switch (opcion) {
-				case 1://case del switch
-					libro = altaLibro(dato);
-					vectorLibros.add(libro);//agrego libro al vector
-					libro = new Libro();//nuevo libro
-					break;
-				case 3://case del switch
-					out.println("Men£ de modificaci¢n de campos\n" + "1.- titulo\n" + "2.- autor\n" + "3.- editorial\n"//muestro por pantalla
-							+ "4.- edicion\n" + "5.- anno de publicacion\n");
-					subopcion = validarOpciones(1, 5);
-					dato = modificacionLibro(libro, subopcion);
-					break;
-				case 4://case del switch
-					vectorLibros = bajaLibro(vectorLibros, dato);
-					break;
-				case 5://case del switch
-					vectorLibros = ordenarLibros(vectorLibros);
-					break;
-				case 6://case del switch
-					mostrarLibros(vectorLibros);
-					break;
-				}
+				realizarOperaciones(opcion);
 			if (opcion < 7 && opcion >= 1)
 				pausar("");//pausa y print en pantalla
 		} while (opcion != 7);
@@ -88,6 +68,38 @@ public class InterfazConsola {
 		}
 		generarOutputLibros(vectorLibros, salida);
 		salida.close();
+	}
+
+	/**
+	 * Realizar las operaciones relacionadas a los libros
+	 * 
+	 * @param opcion
+	 */
+	private void realizarOperaciones(int opcion) {
+		int subopcion = 0;
+		
+		switch (opcion) {
+		case 1://case del switch
+			libro = altaLibro(dato);
+			vectorLibros.add(libro);//agrego libro al vector
+			libro = new Libro();//nuevo libro
+			break;
+		case 3://case del switch
+			out.println("Men£ de modificaci¢n de campos\n" + "1.- titulo\n" + "2.- autor\n" + "3.- editorial\n"//muestro por pantalla
+					+ "4.- edicion\n" + "5.- anno de publicacion\n");
+			subopcion = validarOpciones(1, 5);
+			dato = modificacionLibro(libro, subopcion);
+			break;
+		case 4://case del switch
+			vectorLibros = bajaLibro(vectorLibros, dato);
+			break;
+		case 5://case del switch
+			vectorLibros = ordenarLibros(vectorLibros);
+			break;
+		case 6://case del switch
+			mostrarLibros(vectorLibros);
+			break;
+		}
 	}
 
 	/**
@@ -118,7 +130,6 @@ public class InterfazConsola {
 		if (vectorLibros.isEmpty() && opcion != 1 && opcion != 7) { //valido parametro ingresado
 			pausar("No hay registros.\n"); //sad print//pausa y print en pantalla
 		}
-		
 	}
 
 	/**
