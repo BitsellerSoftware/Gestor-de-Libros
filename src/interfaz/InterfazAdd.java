@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;//imports
 import javax.swing.table.DefaultTableModel;//imports
 import javax.swing.text.PlainDocument;
 import javax.swing.JLabel;//imports
+import javax.swing.JOptionPane;
+
 import java.awt.Font;//imports
 import javax.swing.JTextField;//imports
 import javax.swing.WindowConstants;//imports
@@ -105,7 +107,7 @@ public class InterfazAdd extends JFrame {
 		textFieldAddEdicion.setColumns(10);
 		
 		PlainDocument docEdicion = (PlainDocument) textFieldAddEdicion.getDocument();
-	    docEdicion.setDocumentFilter(new IntFilterYear());
+	    docEdicion.setDocumentFilter(new IntFilterEdicion());
 	    
 
 		textFieldAddPublicacion = new JTextField();
@@ -124,30 +126,37 @@ public class InterfazAdd extends JFrame {
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String ISBN = textFieldAddISBN.getText();//Consigo el texto del label y lo guardo
-				PlainDocument docAutor = (PlainDocument) textFieldAddAutor.getDocument();
-			     docAutor.setDocumentFilter(new IntFilterYear());
-				String autor = textFieldAddAutor.getText();//Consigo el texto del label y lo guardo
-				String titulo = textFieldAddTitulo.getText();//Consigo el texto del label y lo guardo
-				String editorial = textFieldAddEditorial.getText();//Consigo el texto del label y lo guardo
-				int edicion = Integer.parseInt(textFieldAddEdicion.getText());//Consigo el texto del label y lo guardo
-//				PlainDocument docPublicacion = (PlainDocument) textFieldAddPublicacion.getDocument();
-//			    docPublicacion.setDocumentFilter(new IntFilterYear());
-				int publicacion = Integer.parseInt(textFieldAddPublicacion.getText());//Consigo el texto del label y lo guardo
-				Object[] obj = new Object[] { ISBN, titulo, autor, editorial, edicion, publicacion };
-				tableModel.addRow(obj);
-
-				try {//Comienzo try
-					salida = new PrintStream(new FileOutputStream(ruta, true)); //declaro el archivo de salida
-				} catch (FileNotFoundException e1) {//captura de excepcion
-					System.out.println("Ruta incorrecta");//muestro por pantalla
-					e1.printStackTrace();
-				}
-				String libro = ISBN + "\t" + titulo + "\t" + autor + "\t" + editorial + "\t" + edicion + "\t"
-						+ publicacion + "\n";
-				salida.append(libro); //gravo al final del archivo el nuevo libro
-				salida.close(); //cierro archivo
-				dispose();//Elimino ventana
+				try{
+					String ISBN = textFieldAddISBN.getText();//Consigo el texto del label y lo guardo
+					String autor = textFieldAddAutor.getText();//Consigo el texto del label y lo guardo
+					String titulo = textFieldAddTitulo.getText();//Consigo el texto del label y lo guardo
+					String editorial = textFieldAddEditorial.getText();//Consigo el texto del label y lo guardo
+					int edicion = Integer.parseInt(textFieldAddEdicion.getText());//Consigo el texto del label y lo guardo
+					int publicacion = Integer.parseInt(textFieldAddPublicacion.getText());//Consigo el texto del label y lo guardo
+					if( autor.length() == 0 ||  titulo.length() == 0 ||  editorial.length() == 0 ||  ISBN.length() == 0 ){
+						// se fija q no halla nada vacio
+						// porque si apretas aceptar y hay un campo vacio el programa explota
+		            	JOptionPane.showMessageDialog(null, "Debe completar todos los campos para poder agregar un libro");
+					}
+					else{
+						Object[] obj = new Object[] { ISBN, titulo, autor, editorial, edicion, publicacion };
+						tableModel.addRow(obj);
+		
+						try {//Comienzo try
+							salida = new PrintStream(new FileOutputStream(ruta, true)); //declaro el archivo de salida
+						} catch (FileNotFoundException e1) {//captura de excepcion
+							System.out.println("Ruta incorrecta");//muestro por pantalla
+							e1.printStackTrace();
+						}
+						String libro = ISBN + "\t" + titulo + "\t" + autor + "\t" + editorial + "\t" + edicion + "\t" + publicacion + "\n";
+						salida.append(libro); //gravo al final del archivo el nuevo libro
+						salida.close(); //cierro archivo
+						dispose();//Elimino ventana
+					}
+				}catch (NumberFormatException ex) {
+			    	  //no ingresaste nada en la edicion o el a¤o
+	            		JOptionPane.showMessageDialog(null, "Debe completar todos los campos para poder agregar un libro");
+			    }
 			}
 		});
 

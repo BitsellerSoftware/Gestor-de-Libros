@@ -12,14 +12,14 @@ public class IntFilterYear extends DocumentFilter{
 	      int numero;
 		   try {
 	         numero = Integer.parseInt(text);
-	         if( text.length() ==0 || numero > 2018 || numero < 0 ) {
-		    	 // mandaste un numero muy grande o muy chiiqui
+	         if( numero > 2018 || numero < 0 ) {
+		    	 // numero ingresado muy grande o muy chico
 	        	 return false;
 	         }
 	        	
 	         return true;
 	      } catch (NumberFormatException e) {
-	    	  //no mandaste un numero
+	    	  //lo que ingresaste no fue un numero
 	         return false;
 	      }
 	   }
@@ -35,7 +35,7 @@ public class IntFilterYear extends DocumentFilter{
 	      if (test(sb.toString())) {
 	         super.replace(fb, offset, length, text, attrs);
 	      } else {
-	         // no ingresas nada y le avisas al tipo que mando cualquiera
+	         // no ingresas nada y le avisas que lo que ingreso es incorrecto
 	    	  JOptionPane.showMessageDialog( null, "el a¤o ingresado es invalido\nIngrese un numero menos a 2018");
 	      }
 

@@ -5,24 +5,25 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
-import javax.swing.text.DocumentFilter.FilterBypass;
+
 
 public class IntFilterEdicion extends DocumentFilter{
-	private boolean test(String text) {
+	
+	 private boolean test(String text) {
 	      int numero;
 		   try {
 	         numero = Integer.parseInt(text);
-	         if( text.length() == 0 || numero < 0 ) {
-		    	 // mandaste un numero muy grande o muy chiiqui
+	         if( numero < 0 ) {
+		    	 // numero ingresado no es positivo
 	        	 return false;
 	         }
-	        	
 	         return true;
 	      } catch (NumberFormatException e) {
-	    	  //no mandaste un numero
+	    	  //lo que ingresaste no fue un numero
 	         return false;
 	      }
 	   }
+	
 	 @Override
 	   public void replace(FilterBypass fb, int offset, int length, String text,
 	         AttributeSet attrs) throws BadLocationException {
@@ -35,7 +36,7 @@ public class IntFilterEdicion extends DocumentFilter{
 	      if (test(sb.toString())) {
 	         super.replace(fb, offset, length, text, attrs);
 	      } else {
-	         // no ingresas nada y le avisas al tipo que mando cualquiera
+	         // no ingresas nada y avisas que el valor ingresado es incorrecto
 	    	  JOptionPane.showMessageDialog( null, "Error en Edicion\nDebe ser un numero mayor a 0");
 	      }
 

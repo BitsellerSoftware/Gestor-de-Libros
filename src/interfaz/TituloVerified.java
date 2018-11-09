@@ -11,22 +11,20 @@ public class TituloVerified extends InputVerifier{
 	@Override
 	public boolean verify(JComponent input) {
 		String text = ((JTextField) input).getText();
-        try {
+
 //        	int valor = text.indexOf(',');
 //        	estos son comentarios
-//        	para que
-//        	no se cague
-//        	el modelo 
+//        	del modelo 
 //        	de calidad
 //        	System.out.println("valor" + valor);
 //        	System.out.println("longitud" + text.length() );
             if(text.length()>0) {
+            	//titulo ingresado correcto
             	return true;}
             else {
-            	JOptionPane.showMessageDialog(null, "ERROR EN Titulo");
-            return false;}
-        } catch (NumberFormatException e) {
-            return false;
-        }
+            	//titulo ingresado invalido
+            	JOptionPane.showMessageDialog(null, "ERROR en el Titulo");
+            	return false;
+            } 
 }
 }

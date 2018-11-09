@@ -3,11 +3,6 @@ package interfaz;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.DocumentFilter.FilterBypass;
 import javax.swing.JTextField;
 
 public class AutorVerified extends InputVerifier{
@@ -29,27 +24,24 @@ public class AutorVerified extends InputVerifier{
 
 	@Override
 	public boolean verify(JComponent input) {
-		String text = ((JTextField) input).getText();
-        try {
-        	int valor = text.indexOf(',');
-        	//System.out.println(valor);
-//        	if(text.matches("([a-zA-Z]|,|\\s)+")) {
-//        		System.out.println("HOLAAAAA");
-//        	}else {
-//        		System.out.println("chaaaaau");
-//        	}
-        	System.out.println("valor" + valor);
-        	System.out.println("longitud" + text.length() );
-            if(text.matches("([a-zA-Z]|,|\\s)+") && valor > 1 && valor != text.length()-1) {
-            	return true;}
-            else {
-            	JOptionPane.showMessageDialog(null, "ERROR EN AUTOR\nApellido, Nombre");
-            return false;}
-        } catch (NumberFormatException e) {
-            return false;
-        }
-}
-}
+			String text = ((JTextField) input).getText();
+	    	int valor = text.indexOf(',');
+		//System.out.println(valor);
+	//        	if(text.matches("([a-zA-Z]|,|\\s)+")) {
+	//        		System.out.println("HOLAAAAA");
+	//        	}else {
+	//        		System.out.println("chaaaaau");
+	//        	}
+		System.out.println("valor" + valor);
+		System.out.println("longitud" + text.length() );
+	    if(text.matches("([a-zA-Z]|,|\\s)+") && valor > 1 && valor != text.length()-1) {
+	    	return true;
+	    }
+	    else {
+	    	JOptionPane.showMessageDialog(null, "ERROR EN AUTOR\nApellido, Nombre");
+	        return false;
+	    }
+	}
 //	public void shouldyieldfocus(JComponent input) {
 //	      if (verify(input)) {
 //	    	  System.out.println("HOLA");
@@ -97,4 +89,4 @@ public class AutorVerified extends InputVerifier{
 //	      //}
 //
 //	   }
-//}
+}
