@@ -1,5 +1,6 @@
 package gestorLibros;
 
+import autenticacion.Login;
 import interfaz.InterfazConsola;
 import interfaz.InterfazGrafica;
 
@@ -23,7 +24,8 @@ public class GestorLibros {
 		 * */
 		switch (args.length) {
 		case 0:
-			InterfazGrafica.startInterface(ruta); //comienzo de la interfaz grafica
+			//InterfazGrafica.startInterface(ruta); //comienzo de la interfaz grafica
+			Login.startInterface(ruta); //comienzo de la interfaz del login
 			break;//salto
 		case 1:
 			switch (args[0]) {
