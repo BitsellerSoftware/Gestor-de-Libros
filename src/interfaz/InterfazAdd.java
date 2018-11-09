@@ -4,6 +4,7 @@ import javax.swing.JFrame;//imports
 import javax.swing.JPanel;//imports
 import javax.swing.border.EmptyBorder;//imports
 import javax.swing.table.DefaultTableModel;//imports
+import javax.swing.text.PlainDocument;
 import javax.swing.JLabel;//imports
 import java.awt.Font;//imports
 import javax.swing.JTextField;//imports
@@ -74,31 +75,46 @@ public class InterfazAdd extends JFrame {
 		textFieldAddISBN.setBounds(88, 46, 110, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddISBN);//Agrego al panel el elemeto jswing
 		textFieldAddISBN.setColumns(10);
+		
+		textFieldAddISBN.setInputVerifier(new ISBNVerified());
 
 		textFieldAddTitulo = new JTextField();
 		textFieldAddTitulo.setBounds(88, 74, 155, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddTitulo);//Agrego al panel el elemeto jswing
 		textFieldAddTitulo.setColumns(10);
+		
+		textFieldAddTitulo.setInputVerifier(new TituloVerified());
 
 		textFieldAddAutor = new JTextField();
 		textFieldAddAutor.setBounds(88, 99, 155, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddAutor);//Agrego al panel el elemeto jswing
 		textFieldAddAutor.setColumns(10);
+		
+		textFieldAddAutor.setInputVerifier(new AutorVerified());
 
 		textFieldAddEditorial = new JTextField();
 		textFieldAddEditorial.setBounds(88, 126, 116, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddEditorial);//Agrego al panel el elemeto jswing
 		textFieldAddEditorial.setColumns(10);
+		
+		textFieldAddEditorial.setInputVerifier(new EditorialVerified());
 
 		textFieldAddEdicion = new JTextField();
 		textFieldAddEdicion.setBounds(88, 151, 27, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddEdicion);//Agrego al panel el elemeto jswing
 		textFieldAddEdicion.setColumns(10);
+		
+		PlainDocument docEdicion = (PlainDocument) textFieldAddEdicion.getDocument();
+	    docEdicion.setDocumentFilter(new IntFilterYear());
+	    
 
 		textFieldAddPublicacion = new JTextField();
 		textFieldAddPublicacion.setBounds(88, 176, 46, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddPublicacion);//Agrego al panel el elemeto jswing
 		textFieldAddPublicacion.setColumns(10);
+		
+		 PlainDocument docPublicacion = (PlainDocument) textFieldAddPublicacion.getDocument();
+	     docPublicacion.setDocumentFilter(new IntFilterYear());
 
 		JButton btnAgregar = new JButton("Agregar"); //Creo un boton agregar
 
@@ -109,10 +125,14 @@ public class InterfazAdd extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String ISBN = textFieldAddISBN.getText();//Consigo el texto del label y lo guardo
+				PlainDocument docAutor = (PlainDocument) textFieldAddAutor.getDocument();
+			     docAutor.setDocumentFilter(new IntFilterYear());
 				String autor = textFieldAddAutor.getText();//Consigo el texto del label y lo guardo
 				String titulo = textFieldAddTitulo.getText();//Consigo el texto del label y lo guardo
 				String editorial = textFieldAddEditorial.getText();//Consigo el texto del label y lo guardo
 				int edicion = Integer.parseInt(textFieldAddEdicion.getText());//Consigo el texto del label y lo guardo
+//				PlainDocument docPublicacion = (PlainDocument) textFieldAddPublicacion.getDocument();
+//			    docPublicacion.setDocumentFilter(new IntFilterYear());
 				int publicacion = Integer.parseInt(textFieldAddPublicacion.getText());//Consigo el texto del label y lo guardo
 				Object[] obj = new Object[] { ISBN, titulo, autor, editorial, edicion, publicacion };
 				tableModel.addRow(obj);
