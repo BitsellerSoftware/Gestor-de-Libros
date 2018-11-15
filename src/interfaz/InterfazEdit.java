@@ -43,7 +43,7 @@ public class InterfazEdit extends JFrame {
 	public InterfazEdit(int i, DefaultTableModel tableModelOri, String ruta) {
 		this.ruta = ruta;
 		this.tableModel = tableModelOri;
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);//Seteo bounds
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

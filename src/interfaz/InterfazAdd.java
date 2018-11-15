@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;//imports
 import javax.swing.JTextField;//imports
 import javax.swing.WindowConstants;//imports
+import javax.swing.InputVerifier;
 import javax.swing.JButton;//imports
 import java.awt.event.MouseAdapter;//imports
 import java.awt.event.MouseEvent;//imports
@@ -37,7 +38,7 @@ public class InterfazAdd extends JFrame {
 	 * @param ruta
 	 */
 	public InterfazAdd(DefaultTableModel tableModel, String ruta) {
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);//Seteo bounds para elemento jswing
 		contentPane = new JPanel();//Seteo del panel principal
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));//Seteo del panel principal
@@ -78,28 +79,28 @@ public class InterfazAdd extends JFrame {
 		contentPane.add(textFieldAddISBN);//Agrego al panel el elemeto jswing
 		textFieldAddISBN.setColumns(10);
 		
-		textFieldAddISBN.setInputVerifier(new ISBNVerified());
+		//textFieldAddISBN.setInputVerifier(new ISBNVerified());
 
 		textFieldAddTitulo = new JTextField();
 		textFieldAddTitulo.setBounds(88, 74, 155, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddTitulo);//Agrego al panel el elemeto jswing
 		textFieldAddTitulo.setColumns(10);
 		
-		textFieldAddTitulo.setInputVerifier(new TituloVerified());
+		//textFieldAddTitulo.setInputVerifier(new TituloVerified());
 
 		textFieldAddAutor = new JTextField();
 		textFieldAddAutor.setBounds(88, 99, 155, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddAutor);//Agrego al panel el elemeto jswing
 		textFieldAddAutor.setColumns(10);
 		
-		textFieldAddAutor.setInputVerifier(new AutorVerified());
+		//textFieldAddAutor.setInputVerifier(new AutorVerified());
 
 		textFieldAddEditorial = new JTextField();
 		textFieldAddEditorial.setBounds(88, 126, 116, 20);//Seteo bounds para elemento jswing
 		contentPane.add(textFieldAddEditorial);//Agrego al panel el elemeto jswing
 		textFieldAddEditorial.setColumns(10);
 		
-		textFieldAddEditorial.setInputVerifier(new EditorialVerified());
+		//textFieldAddEditorial.setInputVerifier(new EditorialVerified());
 
 		textFieldAddEdicion = new JTextField();
 		textFieldAddEdicion.setBounds(88, 151, 27, 20);//Seteo bounds para elemento jswing
@@ -133,10 +134,26 @@ public class InterfazAdd extends JFrame {
 					String editorial = textFieldAddEditorial.getText();//Consigo el texto del label y lo guardo
 					int edicion = Integer.parseInt(textFieldAddEdicion.getText());//Consigo el texto del label y lo guardo
 					int publicacion = Integer.parseInt(textFieldAddPublicacion.getText());//Consigo el texto del label y lo guardo
+					
+					InputVerifier verifierISBN = new ISBNVerified();
+					InputVerifier verifierAutor = new AutorVerified();
+					InputVerifier verifierTitulo = new TituloVerified();
+					InputVerifier verifierEditorial = new EditorialVerified();
+					
+					boolean verificadoISBN = verifierISBN.verify(textFieldAddISBN);
+					boolean verificadoAutor = verifierAutor.verify(textFieldAddAutor);
+					boolean verificadoTitulo = verifierTitulo.verify(textFieldAddTitulo);
+					boolean verificadoEdit = verifierEditorial.verify(textFieldAddEditorial);
+					
+					/**
 					if( autor.length() == 0 ||  titulo.length() == 0 ||  editorial.length() == 0 ||  ISBN.length() == 0 ){
 						// se fija q no halla nada vacio
 						// porque si apretas aceptar y hay un campo vacio el programa explota
 		            	JOptionPane.showMessageDialog(null, "Debe completar todos los campos para poder agregar un libro");
+					}
+					*/
+					if( !verificadoISBN || !verificadoAutor || !verificadoTitulo || !verificadoEdit ) {
+						JOptionPane.showMessageDialog(null, "Por favor, corrija los campos erroneos para poder agregar un libro");
 					}
 					else{
 						Object[] obj = new Object[] { ISBN, titulo, autor, editorial, edicion, publicacion };
@@ -154,7 +171,7 @@ public class InterfazAdd extends JFrame {
 						dispose();//Elimino ventana
 					}
 				}catch (NumberFormatException ex) {
-			    	  //no ingresaste nada en la edicion o el a¤o
+			    	  //no ingresaste nada en la edicion o el aï¿½o
 	            		JOptionPane.showMessageDialog(null, "Debe completar todos los campos para poder agregar un libro");
 			    }
 			}
