@@ -126,7 +126,7 @@ public class Login {
 						}
 					}
 					br.close();
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña son incorrectos", "Error login",
+					JOptionPane.showMessageDialog(null, "Usuario o password son incorrectos", "Error login",
 							JOptionPane.ERROR_MESSAGE);
 
 				} catch (IOException e) {
@@ -156,7 +156,7 @@ public class Login {
 						}
 	
 						if (users.contains(textField.getText())) {
-							JOptionPane.showMessageDialog(null, "El código de usuario ya existe", "",
+							JOptionPane.showMessageDialog(null, "El codigo de usuario ya existe", "",
 									JOptionPane.ERROR_MESSAGE);
 							br.close();
 						} else {
@@ -170,7 +170,7 @@ public class Login {
 							pw.close();
 							textField.setText("");
 							passwordField.setText("");
-							JOptionPane.showMessageDialog(null, "El usuario se grabó correctamente", "",
+							JOptionPane.showMessageDialog(null, "El usuario se grabo correctamente", "",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (IOException e1) {
@@ -179,7 +179,7 @@ public class Login {
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Usuario y/o contraseña no pueden ser vacíos", "",
+					JOptionPane.showMessageDialog(null, "Usuario y/o password no pueden ser vacios", "",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
