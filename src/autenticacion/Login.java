@@ -76,7 +76,7 @@ public class Login {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
-		JLabel lblTitulo = new JLabel("Ingrese al sistema con su usuario y contraseña");
+		JLabel lblTitulo = new JLabel("Ingrese al sistema con su usuario y password");
 		lblTitulo.setBounds(100, 33, 431, 36);
 		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -91,7 +91,7 @@ public class Login {
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
 		textField.setColumns(10);
 
-		JLabel lblContrasea = new JLabel("Contraseña");
+		JLabel lblContrasea = new JLabel("Password");
 		lblContrasea.setBounds(155, 155, 120, 36);
 		lblContrasea.setHorizontalAlignment(SwingConstants.LEFT);
 		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 16));
