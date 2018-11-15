@@ -1,15 +1,1 @@
-123	123	123123	123	123	123	
-999	Los nueves	98989	89	899	89	
-1233	1233	123123	1233	1233	1233	
-234	unotresdos	123	123	123	123	
-123333	123333	123333	123333	33	444	
-123	El Testing y yo	Don Unlam	McCabe	2	2018	
-123	12	12341	asdsad	12	41
-123	123	4123	443	443	33333333
-222	asd	4asd	123	2	123
-11123	asdzxc	asd	asdqw	123	123
-1123	11asad	zzzzzz	asdasd	123	123
-12321	1asdq	zzzxcx	asasd	123	1234
-		asd123		1234	1234
-	123	gas, gdf	asd123	12	1224
-123-456-789-101-1	UML y Patrones	Larman, Greg	UNLAM	4	1998
+1234-125-2618-1-4	Mi Historia como DT	Basile, Alfio	El Racing de Pizzutti	1	2018	

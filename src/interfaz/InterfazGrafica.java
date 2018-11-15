@@ -38,9 +38,10 @@ public class InterfazGrafica {
 	private JTextField textFieldISBN;//declaracion de atributos en scope clase
 	private JTable table;//declaracion de atributos en scope clase
 	private String ruta;//declaracion de atributos en scope clase
-	private DefaultTableModel tableModel;//declaracion de atributos en scope clase
 	private TableRowSorter<TableModel> rowSorter;//declaracion de atributos en scope clase
-
+	private DefaultTableModel tableModel;//declaracion de atributos en scope clase
+	
+	
 	/**
 	 * Launch the application.
 	 * 
@@ -67,7 +68,6 @@ public class InterfazGrafica {
 		this.ruta = ruta; //inicializo ruta
 		initialize(); //inicializo la interfaz grafica
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -75,8 +75,10 @@ public class InterfazGrafica {
 
 		frame = new JFrame(); //creo nuevo grame
 		frame.setBounds(100, 100, 608, 415);//seteo bounds para elemento de jswing
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //operacion default de cierre
 		frame.getContentPane().setLayout(null); //ni idea
+		
 
 		JLabel lblGestorDeLibros = new JLabel("Gestor de Libros");//Nuevo jlabel
 		lblGestorDeLibros.setBounds(224, 0, 157, 46);//seteo bounds para elemento de jswing
@@ -297,7 +299,16 @@ public class InterfazGrafica {
 	 */
 	private void cargarTabla() {
 		String columnas[] = { "ISBN", "Titulo", "Autor", "Editorial", "Edicion", "A¤o de publicacion" }; //declaracion columnas
-		tableModel = new DefaultTableModel(columnas, 0);
+		tableModel = new DefaultTableModel(columnas, 0) {
+			/**
+			 * 
+			 */
+			    @Override
+			    public boolean isCellEditable (int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		Object[] objs;
 		// tableModel.addRow(columnas);//Agrego a la tabla
 		Vector<Libro> vectorLibros = new Vector<Libro>();

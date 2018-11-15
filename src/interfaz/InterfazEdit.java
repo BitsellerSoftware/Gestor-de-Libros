@@ -4,6 +4,7 @@ import javax.swing.JFrame;//Import
 import javax.swing.JPanel;//Import
 import javax.swing.border.EmptyBorder;//Import
 import javax.swing.table.DefaultTableModel;//Import
+import javax.swing.text.PlainDocument;
 import javax.swing.JLabel;//Import
 import java.awt.Font;//Import
 import javax.swing.JTextField;//Import
@@ -83,37 +84,55 @@ public class InterfazEdit extends JFrame {
 		textFieldPublicacion.setBounds(92, 183, 46, 20);//Seteo bounds
 		contentPane.add(textFieldPublicacion);//Agrego elemento JSWING al panel
 		textFieldPublicacion.setText(tableModel.getValueAt(i, 5).toString());
-
+		//valida publicacion
+		PlainDocument docPublicacion = (PlainDocument) textFieldPublicacion.getDocument();
+	     docPublicacion.setDocumentFilter(new IntFilterYear());
+		
+		
 		textFieldEdicion = new JTextField();
 		textFieldEdicion.setColumns(10);//seteo columnas de elemento de jswing
 		textFieldEdicion.setBounds(92, 158, 27, 20);//Seteo bounds
 		contentPane.add(textFieldEdicion);//Agrego elemento JSWING al panel
 		textFieldEdicion.setText(tableModel.getValueAt(i, 4).toString());
-
+		//valida edicion
+		PlainDocument docEdicion = (PlainDocument) textFieldEdicion.getDocument();
+	    docEdicion.setDocumentFilter(new IntFilterEdicion());
+		
+		
 		textFieldEditorial = new JTextField();
 		textFieldEditorial.setColumns(10);//seteo columnas de elemento de jswing
 		textFieldEditorial.setBounds(92, 133, 116, 20);//Seteo bounds
 		contentPane.add(textFieldEditorial);//Agrego elemento JSWING al panel
 		textFieldEditorial.setText(tableModel.getValueAt(i, 3).toString());
-
+		//valida editorial
+		textFieldEditorial.setInputVerifier(new EditorialVerified());
+		
+	
 		textFieldAutor = new JTextField();
 		textFieldAutor.setColumns(10);//seteo columnas de elemento de jswing
 		textFieldAutor.setBounds(92, 106, 155, 20);//Seteo bounds
 		contentPane.add(textFieldAutor);//Agrego elemento JSWING al panel
 		textFieldAutor.setText(tableModel.getValueAt(i, 2).toString());
-
+		//valida el autor
+		textFieldAutor.setInputVerifier(new AutorVerified());
+		
 		textFieldTitulo = new JTextField();
 		textFieldTitulo.setColumns(10);//seteo columnas de elemento de jswing
 		textFieldTitulo.setBounds(92, 81, 155, 20);//Seteo bounds
 		contentPane.add(textFieldTitulo);//Agrego elemento JSWING al panel
 		textFieldTitulo.setText(tableModel.getValueAt(i, 1).toString());
-
+//valida el titulo
+		textFieldTitulo.setInputVerifier(new TituloVerified());
+		
 		textFieldISBN = new JTextField();
 		textFieldISBN.setColumns(10);//seteo columnas de elemento de jswing
 		textFieldISBN.setBounds(92, 53, 110, 20);//Seteo bounds
 		contentPane.add(textFieldISBN);//Agrego elemento JSWING al panel
 		textFieldISBN.setText(tableModel.getValueAt(i, 0).toString());
-
+		//valida el ISBN
+		
+		textFieldISBN.setInputVerifier(new ISBNVerified());
+		System.out.println("hola");
 		JButton btnAplicar = new JButton("Aplicar");//Creo nuevo boton
 		btnAplicar.addMouseListener(new MouseAdapter() {//declaracion de eventos a escuchar de mouse en este jwing
 			/**
