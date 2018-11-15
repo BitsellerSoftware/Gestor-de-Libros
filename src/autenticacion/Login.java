@@ -30,6 +30,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import interfaz.InterfazGrafica;
+import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.SystemColor;
 
 public class Login {
 
@@ -69,76 +73,69 @@ public class Login {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Ingreso al sistema");
-		frame.setBounds(new Rectangle(600, 400));
+		frame.setBounds(new Rectangle(448, 400));
 		centreWindow(frame);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.controlHighlight);
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 
 		JLabel lblTitulo = new JLabel("Ingrese al sistema con su usuario y password");
-		lblTitulo.setBounds(100, 33, 431, 36);
+		lblTitulo.setBounds(22, 35, 397, 36);
 		lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTitulo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
 		
 		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(155, 97, 120, 36);
+		lblUsuario.setBounds(73, 126, 120, 36);
 		lblUsuario.setHorizontalAlignment(SwingConstants.LEFT);
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblUsuario.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 
 		textField = new JTextField();
-		textField.setBounds(325, 106, 120, 22);
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    validarIngreso();
+				}
+			}
+		});
+		textField.setBounds(243, 135, 120, 22);
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
 		textField.setColumns(10);
 
 		JLabel lblContrasea = new JLabel("Password");
-		lblContrasea.setBounds(155, 155, 120, 36);
+		lblContrasea.setBounds(73, 184, 120, 36);
 		lblContrasea.setHorizontalAlignment(SwingConstants.LEFT);
-		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblContrasea.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(325, 163, 120, 22);
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    validarIngreso();
+                }
+			}
+		});
+		passwordField.setBounds(243, 192, 120, 22);
 		panel.add(passwordField);
 
 		Login inicio = this;
 
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					BufferedReader br = new BufferedReader(new FileReader("usuarios.txt"));
-					String line;
-					StringTokenizer st;
-					String user = "";
-					String pass = "";
-					while ((line = br.readLine()) != null) {
-						st = new StringTokenizer(line, ",");
-						user = st.nextToken();
-						pass = st.nextToken();
-						if (user.equals(textField.getText())
-								&& pass.equals(String.valueOf(passwordField.getPassword()))) {
-							br.close();
-							textField.setText("");
-							passwordField.setText("");
-							InterfazGrafica.startInterface(ruta); //comienzo interfaz grafica
-							frame.setVisible(false);
-							return;
-						}
-					}
-					br.close();
-					JOptionPane.showMessageDialog(null, "Usuario o password son incorrectos", "Error login",
-							JOptionPane.ERROR_MESSAGE);
-
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "El archivo de usuarios no pudo ser encontrado", "",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				validarIngreso();
 			}
 
 		});
 
 		JButton btnRegistro = new JButton("Registrar");
-		btnRegistro.setVisible(false); //Si hace falta lo agregamos al boton al la itfz
+		btnRegistro.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		btnRegistro.setVisible(true); //Si hace falta lo agregamos al boton al la itfz
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(textField.getText() != null && !textField.getText().equals("") && passwordField.getPassword() != null && !passwordField.getPassword().equals("")) {
@@ -186,15 +183,16 @@ public class Login {
 		});
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
 
-		btnIngresar.setBounds(140, 263, 100, 25);
-		btnRegistro.setBounds(250, 263, 100, 25);
-		btnSalir.setBounds(360, 263, 100, 25);
+		btnIngresar.setBounds(93, 277, 100, 25);
+		btnRegistro.setBounds(243, 277, 100, 25);
+		btnSalir.setBounds(168, 326, 100, 25);
 		panel.setLayout(null);
 		panel.add(lblTitulo);
 		panel.add(lblUsuario);
@@ -203,6 +201,43 @@ public class Login {
 		panel.add(btnIngresar);
 		panel.add(btnRegistro);
 		panel.add(btnSalir);
+		
+		JLabel lbloElijaRegistrar = new JLabel("(o elija registrar para dar de alta un usuario nuevo)");
+		lbloElijaRegistrar.setHorizontalAlignment(SwingConstants.LEFT);
+		lbloElijaRegistrar.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lbloElijaRegistrar.setBounds(42, 67, 365, 36);
+		panel.add(lbloElijaRegistrar);
+	}
+
+	private void validarIngreso() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("usuarios.txt"));
+			String line;
+			StringTokenizer st;
+			String user = "";
+			String pass = "";
+			while ((line = br.readLine()) != null) {
+				st = new StringTokenizer(line, ",");
+				user = st.nextToken();
+				pass = st.nextToken();
+				if (user.equals(textField.getText())
+						&& pass.equals(String.valueOf(passwordField.getPassword()))) {
+					br.close();
+					textField.setText("");
+					passwordField.setText("");
+					InterfazGrafica.startInterface(ruta); //comienzo interfaz grafica
+					frame.setVisible(false);
+					return;
+				}
+			}
+			br.close();
+			JOptionPane.showMessageDialog(null, "Usuario o password son incorrectos", "Error login",
+					JOptionPane.ERROR_MESSAGE);
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "El archivo de usuarios no pudo ser encontrado", "",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	/**
