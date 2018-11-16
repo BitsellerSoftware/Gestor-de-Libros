@@ -183,6 +183,7 @@ public class InterfazGrafica {
 		JLabelSearch.addMouseListener(new MouseAdapter() {//Agrego listener del mouse para elemento de jswing
 			@Override
 			public void mouseClicked(MouseEvent e) {//Cuando hacen click//cuando sale el mouse
+				cargarTabla();
 				filter_table();
 			}
 		});
@@ -298,7 +299,7 @@ public class InterfazGrafica {
 	 * Cargo tabla mostrada en la interfaz
 	 */
 	private void cargarTabla() {
-		String columnas[] = { "ISBN", "Titulo", "Autor", "Editorial", "Edicion", "A¤o de publicacion" }; //declaracion columnas
+		String columnas[] = { "ISBN", "Titulo", "Autor", "Editorial", "Edicion", "Aï¿½o de publicacion" }; //declaracion columnas
 		tableModel = new DefaultTableModel(columnas, 0) {
 			/**
 			 * 
